@@ -51,55 +51,57 @@ The model utilizes the **Myntra Pants Scraping Dataset** consisting of **52,120 
 ---
 
 ## Project Workflow
-Raw Dataset (52,120 rows, 7 columns)
-       │
-       ▼
-Exploratory Data Analysis (EDA)
- ├── Univariate Distribution Analysis
- ├── Bivariate Attribute Correlations
- └── Multivariate Relationship Trends
-       │
-       ▼
-Feature Engineering
- ├── Extract 'fit_type' from pants_description
- └── Extract 'fabric_type' from pants_description
-       │
-       ▼
-Data Preprocessing & Encoding
- ├── Drop unneeded raw structural text columns
- └── Label Encode Categorical: ['brand_name', 'fit_type', 'fabric_type']
-       │
-       ▼
-Train-Test Split (80% Train / 20% Test, random_state=42)
-       │
-       ▼
-Feature Scaling
- └── Apply StandardScaler to independent variables (X)
-       │
-       ▼
-Multi-Model Evaluation & Benchmarking
- ├── Train 6 Regressors (Linear, Ridge, Lasso, DT, RF, GBR)
- └── Track Performance Across Metrics (R², MAE, RMSE)
-       │
-       ▼
-Hyperparameter Optimization
- └── Automated GridSearchCV on top-performing architectures
-       │
-       ▼
-Model Evaluation & Diagnostic Diagnostics
- ├── Identify Best Model Configuration via Test R² Score
- └── Plot Actual vs. Predicted Price Distribution Curves
-       │
-       ▼
-Pipeline Serialization (Export Artifacts)
- ├── Save Best Regressor ➔ myntra_price_best_model.pkl
- ├── Save Transformer ➔ myntra_price_scaler.pkl
- └── Save LabelEncoders ➔ myntra_price_encoders.pkl
+## Project Workflow
 
----
+```text
+Raw Dataset (52,120 rows, 7 columns)
+         │
+         ▼
+Exploratory Data Analysis (EDA)
+├── Univariate Distribution Analysis
+├── Bivariate Attribute Correlations
+└── Multivariate Relationship Trends
+         │
+         ▼
+Feature Engineering
+├── Extract 'fit_type' from pants_description
+└── Extract 'fabric_type' from pants_description
+         │
+         ▼
+Data Preprocessing & Encoding
+├── Drop unneeded raw structural text columns
+└── Label Encode Categorical: ['brand_name', 'fit_type', 'fabric_type']
+         │
+         ▼
+Train-Test Split (80% Train / 20% Test, random_state=42)
+         │
+         ▼
+Feature Scaling
+└── Apply StandardScaler to independent variables (X)
+         │
+         ▼
+Multi-Model Evaluation & Benchmarking
+├── Train 6 Regressors (Linear, Ridge, Lasso, DT, RF, GBR)
+└── Track Performance Across Metrics (R², MAE, RMSE)
+         │
+         ▼
+Hyperparameter Optimization
+└── Automated GridSearchCV on top-performing architectures
+         │
+         ▼
+Model Evaluation & Diagnostic Diagnostics
+├── Identify Best Model Configuration via Test R² Score
+└── Plot Actual vs. Predicted Price Distribution Curves
+         │
+         ▼
+Pipeline Serialization (Export Artifacts)
+├── Save Best Regressor ➔ myntra_price_best_model.pkl
+├── Save Transformer ➔ myntra_price_scaler.pkl
+└── Save LabelEncoders ➔ myntra_price_encoders.pkl
+```
 
 ## Models Trained & Evaluated
-Six regression algorithms were evaluated and compared side-by-side to determine the optimal price estimation system:
+Seven regression algorithms were evaluated and compared side-by-side to determine the optimal price estimation system:
 
 1. **Linear Regression** (Baseline)
 2. **Ridge Regression** (L2 Regularization)
@@ -107,6 +109,7 @@ Six regression algorithms were evaluated and compared side-by-side to determine 
 4. **Decision Tree Regressor**
 5. **Random Forest Regressor** (Ensemble)
 6. **Gradient Boosting Regressor** (Sequential Boosting)
+7. **Xgboost Boosting Regressor**
 
 *The optimal pipeline pipeline automatically identifies the best model configuration based on the highest Test **$R^2$ Score**.*
 
@@ -198,12 +201,12 @@ with open('myntra_price_encoders.pkl', 'rb') as f:
 - The Importance of Target Scaling Checks: Evaluating variance across standard residual distributions helps locate pricing outbounds and extreme item classes.
 
 ### Future Improvements
-[ ] Build and launch an interactive GUI frontend using Streamlit.
+- Build and launch an interactive GUI frontend using Streamlit.
 
-[ ] Add explainability matrices with SHAP / LIME values to trace feature contributions behind single item evaluations.
+- Add explainability matrices with SHAP / LIME values to trace feature contributions behind single item evaluations.
 
-[ ] Implement automated deep hyperparameter extraction optimization routines via Optuna.
+- Implement automated deep hyperparameter extraction optimization routines via Optuna.
 
-[ ] Experiment with Tabular Deep Learning frameworks like TabNet to track improvements against Gradient Boosted trees.
+- Experiment with Tabular Deep Learning frameworks like TabNet to track improvements against Gradient Boosted trees.
 
 HuggingFace deployment link: https://huggingface.co/spaces/Mohanasree-2/myntra_price_prediction
